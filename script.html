@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css"/>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Creat Acccount</h2>
+        </div>
+       <form class="form" id="form">
+           <div class="form-control">
+               <label>Username</label>
+               <input type="text" placeholder="Enter Username" id="Username">
+               <small>Error Message</small>
+           </div>
+           <div class="form-control">
+               <label>Email</label>
+               <input type="email" placeholder="Email@gmail.com" id="email">
+               <small>Error Message</small>
+           </div>
+           <div class="form-control">
+            <label>Password</label>
+            <input type="password" placeholder="password" id="Password">
+            <small>Error Message</small>
+        </div>
+        <div class="form-control">
+            <label>Confirm Password</label>
+            <input type="Password" placeholder="Confirm Password" Id="Password2">
+            <small>Error Message</small>
+        </div>
+        <button>Submit</button>
+       </form> 
+    </div>
+    <script>
+        const form = document.getElementById("form");
+        const username = document.getElementById("Username");
+        const email = document.getElementById("email");
+        const password = document.getElementById("Password");
+        const Password2 = document.getElementById("Password2");
+
+        form.addEventListener('Submit',e =>{
+            e.PreventDefault();
+            CheckInput();
+        });
+
+        function checkInput(){
+           const usernameValue = username.value.trim();
+           const emailValue = email.value.trim();
+           const passwordValue = password.value.trim();
+           const password2Value = password2.value.trim();
+           
+           if(usernameValue === ''){
+               setError(username,"Username cannot Be Blank");
+           }
+           else{
+               setSuccess(username);
+           }
+           if(emailValue === ''){
+               setError(email,'Email cannot Be Blank');
+           }
+           else if(!isEmail(emailValue)){
+               setError(email,"Not a valid Email");
+           }
+           else{
+               setSuccess(email);
+           }
+           if(passwordValue === ''){
+               setError(password,'password cannot Be Blank');
+           }
+           else{
+               setSuccess(password);
+           }
+           if(password2Value === ''){
+               setError(password2,'password cannot Be Blank');
+           }
+           else if(passwordValue !== password2Value){
+               setError(password2,"Password Does Not Match");
+           }
+           else{
+               setSuccess(password2);
+           }
+        }
+        function setError(input, message){
+            const formControl = input.parentElement;
+            const small = formControl.querySelector('small');
+            formControl.className = 'form-control error';
+            small.innerText = message;
+        }
+        function setSuccess(input){
+           const formControl = input.parentElement;
+           formControl.className = 'form-control success'
+        }
+        
+        
+    </script>
+</body>
+</html>
